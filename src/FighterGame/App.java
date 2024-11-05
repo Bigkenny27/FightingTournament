@@ -9,6 +9,9 @@ public class App {
     static Random random = new Random();
 
 
+    static boolean autoPlay = false;
+
+
     static boolean gameRunning = true;
     static int tick;
 
@@ -18,12 +21,27 @@ public class App {
     }
 
     public static void initaliseGame() {
-        // TODO: make a auto mode and a step by step mode
+       
+        // you can turn this into a function
         Scanner scan = new Scanner(System.in);
         System.out.println("Do you want (A)utomatic or (M)anual");
+        while (true) {
+            String test = scan.next();
 
-        String test = scan.nextLine();
-        
+            if (test.equals("A")) {
+                autoPlay = true;
+                break;
+            } else if (test.equals("M")) {
+                autoPlay = false;
+                break;
+            } else {
+                System.out.println("invalid input, Please use type A for Automatic and M for manual.");
+            }
+        }
+        scan.close();
+
+
+        initaliseFight();
     }
 
     public static void initaliseFight() {
@@ -44,20 +62,24 @@ public class App {
         GameLoop();
     }
     
-    
+    public static void printHP() {
+        for (int i  = 0; i < fighters.size(); i++) {
+            Fighter currentFighter = fighters.get(i);
+            System.out.println(currentFighter.getName() + " HP:" + currentFighter.getCurrHP());
+        }
+    }
 
 
     public static void GameLoop() {
+        printHP();
         while (gameRunning) {
             for (int i  = 0; i < fighters.size(); i++) {
                 Fighter currentFighter = fighters.get(i);
                 currentFighter.loop(tick);
-
             }
-
-
             tick++;
         }
+
 
         System.out.println("Game Completed.");
     }

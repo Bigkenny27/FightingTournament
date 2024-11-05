@@ -35,7 +35,11 @@ public class Fighter {
 
 
     private void initaliseHP() {
-        maxHP = 200 + Con * 4;
+        
+        int preModifiedHP = 200 + Con * 4;
+        float randomModifier = (50 + App.random.nextInt(75));
+        float modifier = randomModifier/100;
+        maxHP = (int) (preModifiedHP * modifier);
         currHP = maxHP;
     }
 
@@ -49,6 +53,7 @@ public class Fighter {
     private void punch(Fighter enemyFighter) {
         int damageOutput = 20 + 2 * Str;
         int accuracy = 95;
+        // could become a function
         float randomModifier = (50 + App.random.nextInt(75));
         float damageModifier = randomModifier/100;
 
@@ -63,7 +68,9 @@ public class Fighter {
     private void takeDamage(int damage) {
         currHP -= damage;
         System.out.println(name + " is damaged for " + damage + " damage!");
+        App.printHP();
         checkDeath();
+        
     }
 
       // boolean incase revive spell or something
@@ -115,9 +122,9 @@ public class Fighter {
     }
 
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
+    public int getCurrHP() {return currHP;}
+    
 
     public void loop(int tick) {
         if (checkReadyForAttack(tick)) {
