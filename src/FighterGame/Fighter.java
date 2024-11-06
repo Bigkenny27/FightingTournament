@@ -37,9 +37,7 @@ public class Fighter {
     private void initaliseHP() {
         
         int preModifiedHP = 200 + Con * 4;
-        float randomModifier = (50 + App.random.nextInt(75));
-        float modifier = randomModifier/100;
-        maxHP = (int) (preModifiedHP * modifier);
+        maxHP = Helper.randomiseModifer(preModifiedHP, 75, 125);
         currHP = maxHP;
     }
 
@@ -53,12 +51,8 @@ public class Fighter {
     private void punch(Fighter enemyFighter) {
         int damageOutput = 20 + 2 * Str;
         int accuracy = 95;
-        // could become a function
-        float randomModifier = (50 + App.random.nextInt(75));
-        float damageModifier = randomModifier/100;
-
-        int modifiedDamage = (int) (damageOutput * damageModifier);
-
+        // under could become a function
+        int modifiedDamage =  Helper.randomiseModifer(damageOutput, 50, 125);
         
         enemyFighter.recieveAttack(modifiedDamage, accuracy);
     }
@@ -68,14 +62,16 @@ public class Fighter {
     private void takeDamage(int damage) {
         currHP -= damage;
         System.out.println(name + " is damaged for " + damage + " damage!");
-        App.printHP();
-        checkDeath();
-        
+
+        Helper.printHP(this);
+
+        checkDeath();   
     }
 
       // boolean incase revive spell or something
     private void checkDeath() {
-        if (currHP <= 0) isDead = true;
+        if (currHP <= 0) 
+        isDead = true; dead();
 
     }
 
@@ -87,16 +83,8 @@ public class Fighter {
     }
 
     // checks and does death mechanic
-    private void isDead() {
-        if (!isDead) {
-            return;
-        }
-
-        System.out.println(name + " has died");
-        System.out.println(opponent.getName() + " Wins!");
-        App.gameRunning = false;
-
-
+    private void dead() {
+        Game.fighterDeath(this);
     }
 
     public void recieveAttack(int damage, int accuracy) {
@@ -106,7 +94,7 @@ public class Fighter {
         int modifiedMissChance = (int) Math.floor(attackMissChance * (Eva/100 + 1));
 
         // dice roll
-        int randomNumber = App.random.nextInt();
+        int randomNumber = Helper.generateRandomNumber(0,100);
         if (randomNumber > modifiedMissChance) {
             // take damage
             takeDamage(damage);
@@ -130,8 +118,6 @@ public class Fighter {
         if (checkReadyForAttack(tick)) {
             attackEnemy(opponent);
         }
-
-        isDead();
     }
 
 
