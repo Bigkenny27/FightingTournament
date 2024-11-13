@@ -6,11 +6,11 @@ public class Fighter {
     private int maxHP;
     private int currHP;
     
-    private int Str;
-    private int Dex;
-    private int Con;
-    private int Eva;
-    private int Spd;
+    private int Str; // Damage
+    private int Dex; // Energy
+    private int Con; // Health
+    private int Eva; // Dodge Chance
+    private int Spd; // Speed
 
     private Fighter opponent;
 
@@ -57,24 +57,64 @@ public class Fighter {
         enemyFighter.recieveAttack(modifiedDamage, accuracy);
     }
 
+    private void checkDeath() {
+        if (currHP <= 0) {
+            deathProcedure();
+        }
+    }
 
+    private void deathProcedure() {
+        isDead = true; 
+        Game.fighterDeath(this);
+    }
 
     private void takeDamage(int damage) {
         currHP -= damage;
-        System.out.println(name + " is damaged for " + damage + " damage!");
-
-        Helper.printHP(this);
-
+        System.out.println("Tick " + Game.getTick() + ": "+ name + " is damaged for " + damage + " damage!");
         checkDeath();   
+
+        if (isDead) return;
+        
+        Helper.printFighterStats(this);
+    }
+    
+    
+
+    /*
+     * Called when attack is recieved. Does the accuracy check then all of the effects of attack
+     * TODO: potentially input could be an array for the deets of attack
+     */
+    public void recieveAttack(int damage, int accuracy) {
+
+        if (attackHits(accuracy)) {
+            takeDamage(damage);
+        } else {
+            System.out.println(name + " dodges " + opponent.getName() + "'s attack!");
+        }
+        
+        Helper.printBar();
+
+        // if the game is on the Manual setting, then cause the game to pause and wait for manual input
+        Game.setPauseManual();
     }
 
-      // boolean incase revive spell or something
-    private void checkDeath() {
-        if (currHP <= 0) 
-        isDead = true; dead();
+    /*
+     * Dodge Check - Checks if the attack hits or misses
+     */
+    private boolean attackHits(int accuracy) {
+        // check if it hits
+        int attackMissChance = 100 - accuracy;
+        int modifiedMissChance = (int) Math.floor(attackMissChance * (Eva/100 + 1));
+        // dice roll
+        int randomNumber = Helper.generateRandomNumber(0,100);
 
+        // debugPrintDodgeNumbers(randomNumber, modifiedMissChance);
+
+        // Miss check
+        if (randomNumber > modifiedMissChance) return true; else return false;
     }
 
+    // ------------- CHECKS ---------------
     private Boolean checkReadyForAttack(int tick) {
         int attackDelay = 100 - Spd;
 
@@ -82,38 +122,20 @@ public class Fighter {
         return false;
     }
 
-    // checks and does death mechanic
-    private void dead() {
-        Game.fighterDeath(this);
-    }
+    // -------------- SETS -----------------
 
-    public void recieveAttack(int damage, int accuracy) {
-        // check if it hits
-        int attackMissChance = 100 - accuracy;
-        
-        int modifiedMissChance = (int) Math.floor(attackMissChance * (Eva/100 + 1));
-
-        // dice roll
-        int randomNumber = Helper.generateRandomNumber(0,100);
-        if (randomNumber > modifiedMissChance) {
-            // take damage
-            takeDamage(damage);
-        } else {
-            System.out.println(name + " dodges " + opponent.getName() + "'s attack!");
-        }
-        
-        
-    }
 
     public void setOpponent(Fighter opponent) {
         this.opponent = opponent;
     }
 
-
+    // -------------- GETS -----------------
     public String getName() {return name;}
     public int getCurrHP() {return currHP;}
     
 
+
+    // -------------- LOOP -----------------
     public void loop(int tick) {
         if (checkReadyForAttack(tick)) {
             attackEnemy(opponent);
@@ -121,7 +143,11 @@ public class Fighter {
     }
 
 
-
+    // Debugging
+    private void debugPrintDodgeNumbers(int randomNumber, int modifiedMissChance) {
+        System.out.println("Attack random Number: " + randomNumber);
+        System.out.println("Modified Miss Chance: " + modifiedMissChance);
+    }
 
 
 }

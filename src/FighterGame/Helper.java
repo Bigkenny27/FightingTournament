@@ -1,21 +1,44 @@
 package FighterGame;
 
 import java.util.Random;
+import java.util.Scanner;
+
 
 
 public final class Helper {
     private static Random random = new Random();
+    private static Scanner scan = new Scanner(System.in);
 
 
-    // good for displaying status and mprint statements
     private Helper() {
 
     }
 
-   
-    public static void printHP(Fighter fighter) {
-        System.out.println(fighter.getName() + " HP:" + fighter.getCurrHP());
+    // ------------- Scanner ---------------
+    public static void endScanner() {
+        scan.close();
     }
+
+    public static String scanNextLine() {
+        return scan.nextLine().trim();
+    }
+   
+
+    // -------------- Print -----------------
+    public static void printFighterStats(Fighter fighter) {
+        System.out.println(fighter.getName() + " HP: " + fighter.getCurrHP());
+    }
+
+    public static void printBar() {
+        for (int i = 0; i < 2; i++) {
+            System.out.print("-----------------");
+        }
+        System.out.println("-----------------");
+    }
+
+
+
+    // ---------------- Random ------------------
 
     /*
      *  This function will generate a random number INCLUSIVE of the lower and upper bound

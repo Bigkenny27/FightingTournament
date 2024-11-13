@@ -1,22 +1,27 @@
 package FighterGame;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class GameLoader {
     // This class will load the fighters and config
 
     static ArrayList<Fighter> fighters = new ArrayList<Fighter>();
-    
 
     public static void addFighter(Fighter fighter) {
         fighters.add(fighter);
     }
 
 
-
+    /*
+     * Stats go:
+     * Str (Damage)
+     * Dex (Energy) - To be implemented
+     * Con (Health)
+     * Eva (Dodge)
+     * Spd (Speed)
+     */
     public static void initaliseFight() {
-        
 
         int[] fighterStats1 = {17, 20, 44, 20, 10};
         int[] fighterStats2 = {26, 20, 34, 20, 35};
