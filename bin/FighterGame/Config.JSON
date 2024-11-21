@@ -1,0 +1,60 @@
+{
+    "Fighters": [
+        {
+            "name" : "bob",
+            "statline": [1,1,1,1,1],
+            "Attacks": [
+            {   
+                "Name": "punch",
+                "Damage": "20",
+                "Energy": "10",
+                "Accuracy": "95",
+                "StatModifiers": [2,0,0,0,0],
+                "Keywords": ["None"]
+            },
+            {   
+                "Name": "uppercut",
+                "Damage": "50",
+                "Energy": "30",
+                "Accuracy": "70",
+                "StatModifiers": [3,0,1,0,0],
+                "Keywords": ["None"]
+            }
+            ]
+        },
+        {
+            "name" : "jerry",
+            "statline": [1,1,1,1,1],
+            "Attacks": [
+            {   
+                "Name": "punch",
+                "Damage": "20",
+                "Energy": "10",
+                "Accuracy": "95",
+                "StatModifiers": [2,0,0,0,0],
+                "Keywords": ["None"]
+            },
+            {   
+                "Name": "uppercut",
+                "Damage": "50",
+                "Energy": "30",
+                "Accuracy": "70",
+                "StatModifiers": [3,0,1,0,0],
+                "Keywords": ["None"]
+            }
+            ]
+        }
+
+
+    ]    
+
+
+
+
+
+
+
+
+
+
+}

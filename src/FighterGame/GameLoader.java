@@ -23,8 +23,8 @@ public class GameLoader {
      */
     public static void initaliseFight() {
 
-        int[] fighterStats1 = {17, 20, 44, 20, 10};
-        int[] fighterStats2 = {26, 20, 34, 20, 35};
+        int[] fighterStats1 = {15, 52, 12, 23, 26};
+        int[] fighterStats2 = {16, 12, 23, 28, 23};
 
         Fighter jerry = new Fighter("Jerry", fighterStats1);
         Fighter bob = new Fighter("Bob", fighterStats2);
@@ -36,12 +36,14 @@ public class GameLoader {
         addFighter(bob);
 
 
-        // TODO: Change this when configs are added.
-        Game.startGame();
+        
+        
         
     }
     public static void start() {
         initaliseFight();
+        // TODO: Change this when configs are added.
+        Game.startGame();
     }
     
     public static ArrayList<Fighter> getFighters() {return fighters;}

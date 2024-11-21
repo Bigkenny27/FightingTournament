@@ -27,6 +27,17 @@ public final class Helper {
     // -------------- Print -----------------
     public static void printFighterStats(Fighter fighter) {
         System.out.println(fighter.getName() + " HP: " + fighter.getCurrHP());
+        System.out.println(fighter.getName() + " Energy: " + fighter.getCurrEnergy());
+    }
+
+    public static void printBothFighterStats(Fighter fighter) {
+        // TODO: Make it so that the fighters dont alternate
+
+        Fighter opponent = fighter.getOpponent();
+        System.out.println(fighter.getName() + " HP: " + fighter.getCurrHP());
+        System.out.println(fighter.getName() + " Energy: " + fighter.getCurrEnergy());
+        System.out.println(opponent.getName() + " HP: " + opponent.getCurrHP());
+        System.out.println(opponent.getName() + " Energy: " + opponent.getCurrEnergy());
     }
 
     public static void printBar() {

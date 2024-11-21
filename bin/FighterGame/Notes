@@ -1,1 +1,11 @@
 Added a helper class that will house functions that could be used across different classes, currently houses functions that requires random module, Just testing if it works well. There is a bug where the game does not end when a fighter dies. Please run the game before you edit the code
+
+
+
+
+Current:
+Please add functionality to damage modifier - energy stun stuff
+Skipping energy stunned stuff, working on loading configs now. 
+JSON reading is a pain, working on customDeseralizer, need to use it to make the fighters
+
+
